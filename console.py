@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ Console Module """
 import cmd
+import os
 import sys
 from models.base_model import BaseModel
 from models.__init__ import storage
@@ -129,7 +130,11 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         new_instance = HBNBCommand.classes[_cls]()
-        storage.save()
+        if os.getenv('HBNB_ENV') == 'db':
+            storage.new(new_instance)
+            storage.save()
+        else:
+            storage.save()
         if pline[2]:
             params = pline[2]
             # print(f"parmas: {params}")
@@ -160,9 +165,13 @@ class HBNBCommand(cmd.Cmd):
                     continue
             print(new_instance.id)
         else:
-            storage.save()
+            if os.getenv('HBNB_ENV') == 'db':
+                storage.new(new_instance)
+                storage.save()
+            else:
+                storage.save()
             print(new_instance.id)
-            storage.save()
+            # storage.save()
 
     def help_create(self):
         """ Help information for the create method """
@@ -238,17 +247,17 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, args):
         """ Shows all objects, or all objects of a class"""
         print_list = []
-
+        engine = storage.all()
         if args:
             args = args.split(' ')[0]  # remove possible trailing args
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in engine.items():
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
         else:
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in engine.items():
                 print_list.append(str(v))
 
         print(print_list)
@@ -261,7 +270,7 @@ class HBNBCommand(cmd.Cmd):
     def do_count(self, args):
         """Count current number of class instances"""
         count = 0
-        for k, v in storage._FileStorage__objects.items():
+        for k, v in storage.all().items():
             if args == k.split('.')[0]:
                 count += 1
         print(count)

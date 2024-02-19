@@ -66,3 +66,16 @@ class FileStorage:
         obj_key = obj.__class__.__name__ + '.' + str(obj.id)
         if obj_key in obj_dict:
             del obj_dict[obj_key]
+
+    def cities(self, state_id):
+        """
+        Getter attribute that returns a list of City instances
+        with state_id equals to the provided state_id.
+        """
+        from models.city import City
+
+        cities_list = []
+        for city_instance in self.all(City):
+            if city_instance.state_id == state_id:
+                cities_list.append(city_instance)
+        return cities_list
