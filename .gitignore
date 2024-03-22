@@ -8,3 +8,6 @@ file
 main_place_amenities.py
 main_delete.py
 test.sh
+web_flask/__pycache__/*
+web_flask/flask_blog
+web_flask/venv
