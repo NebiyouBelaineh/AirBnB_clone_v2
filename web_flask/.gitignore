@@ -1,5 +1,11 @@
-flask_blog
-venv
+# Ignore everything
 *
-*__pycache__*
+*/
+# *__pycache__*
+
+# Except the following
 !*.py
+!*.html
+!*.md
+!/templates
+*w3c_validator.py
