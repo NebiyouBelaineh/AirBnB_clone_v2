@@ -4,17 +4,23 @@ from models.base_model import BaseModel, Base
 from models.city import City
 from models.amenity import Amenity
 from models.user import User
-from sqlalchemy import Column, String, ForeignKey, Integer, Float, Table
+from sqlalchemy import Column, String, ForeignKey, Integer, Float, Table,\
+DateTime
 from sqlalchemy.orm import relationship
 import os
+from datetime import datetime
 
 
 class Place(BaseModel, Base):
     """ A place to stay """
     __tablename__ = "places"
 
-    city_id = Column(String(60), ForeignKey(City.id), nullable=False)
-    user_id = Column(String(60), ForeignKey(User.id), nullable=False)
+    id = Column(String(60), unique=True, nullable=False, primary_key=True)
+    created_at = Column(DateTime, nullable=False, default=(datetime.utcnow()))
+    updated_at = Column(DateTime, nullable=False, default=(datetime.utcnow()))
+
+    city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
+    user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
     name = Column(String(128), nullable=False)
     description = Column(String(1024), nullable=True)
     number_rooms = Column(Integer, nullable=False, default=0)

@@ -4,8 +4,6 @@
     - uses storage for fetching data from the storage engine
     (FileStorage or DBStorage)
 """
-from models.engine import db_storage
-from models.engine import file_storage
 from models.state import State
 from models import storage
 from flask import Flask, render_template
@@ -18,7 +16,8 @@ app.url_map.strict_slashes = False
 @app.route('/states_list')
 def states_list():
     """displays HTML page with States and their ids"""
-    return render_template('7-states_list.html', states=storage.all(State))
+    all_states = storage.all(State).values()
+    return render_template('7-states_list.html', states=all_states)
 
 
 @app.teardown_appcontext
