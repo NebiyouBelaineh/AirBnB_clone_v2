@@ -4,8 +4,8 @@ from models.base_model import BaseModel, Base
 from models.city import City
 from models.amenity import Amenity
 from models.user import User
-from sqlalchemy import Column, String, ForeignKey, Integer, Float, Table,\
-DateTime
+from sqlalchemy import Column, String, ForeignKey, Integer, Float, Table, \
+    DateTime
 from sqlalchemy.orm import relationship
 import os
 from datetime import datetime

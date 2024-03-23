@@ -11,3 +11,10 @@ test.sh
 web_flask/__pycache__/*
 web_flask/flask_blog
 web_flask/venv
+*json*
+*reverse*
+reset*
+test_cities_getter.py
+main.py
+py_tar.py
+7-dump.sql
