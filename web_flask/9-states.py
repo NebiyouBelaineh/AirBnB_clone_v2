@@ -13,6 +13,13 @@ app = Flask(__name__)
 app.url_map.strict_slashes = False
 
 
+@app.teardown_appcontext
+def close_storage(exception=None):
+    """Method to perform cleanup tasks to release resources associated
+    with application context"""
+    storage.close()
+
+
 @app.route('/states')
 def states():
     """displays HTML page containing State information"""
@@ -28,14 +35,8 @@ def states_by_id(id):
     for state in all_states:
         if state.id == id:
             found_state = state
+            break
     return render_template('9-states.html', states=found_state)
-
-
-@app.teardown_appcontext
-def close_storage(exception=None):
-    """Method to perform cleanup tasks to release resources associated
-    with application context"""
-    storage.close()
 
 
 if __name__ == '__main__':
