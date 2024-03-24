@@ -19,7 +19,8 @@ def hbnb_filters():
     """displays HTML page with for Airbnb_clone"""
     data_state = storage.all(State).values()
     data_amenity = storage.all(Amenity).values()
-    return render_template('10-hbnb_filters.html', states=data_state, amenities=data_amenity)
+    return render_template('10-hbnb_filters.html', states=data_state,
+                           amenities=data_amenity)
 
 
 @app.teardown_appcontext
