@@ -17,4 +17,4 @@ reset*
 test_cities_getter.py
 main.py
 py_tar.py
-7-dump.sql
+*-dump.sql
