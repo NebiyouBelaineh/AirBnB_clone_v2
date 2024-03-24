@@ -14,7 +14,7 @@ app.url_map.strict_slashes = False
 
 
 @app.teardown_appcontext
-def close_storage(exception=None):
+def close_storage():
     """Method to perform cleanup tasks to release resources associated
     with application context"""
     storage.close()
