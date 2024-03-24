@@ -24,7 +24,7 @@ def close_storage(exception=None):
 def states():
     """displays HTML page containing State information"""
     all_states = storage.all(State).values()
-    return render_template('9-states.html', states=all_states)
+    return render_template('7-states_list.html', states=all_states)
 
 
 @app.route('/states/<id>')
@@ -36,7 +36,7 @@ def states_by_id(id):
         if state.id == id:
             found_state = state
             break
-    return render_template('9-states.html', states=found_state)
+    return render_template('9-states.html', state=found_state)
 
 
 if __name__ == '__main__':
